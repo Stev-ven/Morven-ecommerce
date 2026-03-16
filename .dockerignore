@@ -9,3 +9,4 @@ storage/framework/views
 .env
 docker-compose.yml
 Dockerfile
+public/storage
