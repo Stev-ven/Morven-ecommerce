@@ -1,3 +1,4 @@
+public/storage
 .git
 .gitignore
 node_modules
@@ -9,4 +10,3 @@ storage/framework/views
 .env
 docker-compose.yml
 Dockerfile
-public/storage
