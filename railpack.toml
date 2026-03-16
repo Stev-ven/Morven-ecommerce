@@ -1,0 +1,3 @@
+[build]
+nixpacks = false
+php_config_cache = false
