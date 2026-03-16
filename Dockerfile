@@ -9,25 +9,21 @@ RUN apt-get update && apt-get install -y \
   git unzip libzip-dev libonig-dev libpng-dev curl \
   && docker-php-ext-install pdo_mysql mbstring zip exif pcntl bcmath gd
 
-
 # Install Composer globally
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Copy only composer files first
+# Copy composer files first
 COPY composer.json composer.lock ./
-
-# Then copy the rest of the project
-COPY . .
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-
+# Copy the rest of the app
+COPY . .
 
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html \
   && chmod -R 755 /var/www/html
 
-# Expose port and run PHP-FPM
-EXPOSE 9000
-CMD ["php-fpm"]
+# Use Laravel's built-in server on Railway HTTP port
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8080"]
